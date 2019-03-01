@@ -1,0 +1,28 @@
+{
+  "name": "react-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack",
+    "build": "webpack --watch --progress",
+    "local": "npm run webpack && open dist/index.html && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "html-webpack-plugin": "^3.2.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "webpack-cli": "^3.2.3"
+  }
+}
