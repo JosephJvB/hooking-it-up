@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack",
+    "start": "webpack && node server",
     "build": "webpack --watch --progress",
-    "local": "npm run webpack && open dist/index.html && npm run build"
+    "local": "npm run build & open dist/index.html",
+    "server": "nodemon server",
+    "dev": "npm run build & npm run server"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,9 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "fastify": "^2.0.0",
+    "fastify-helmet": "^3.0.0",
+    "fastify-static": "^2.3.4",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
