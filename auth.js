@@ -8,12 +8,13 @@ const jwt = require('jsonwebtoken')
 const SALT_ROUNDS = 1
 
 // not creating records yet - just send back a web-token
+// i didnt have to write this.. i should really just mock something on the front end to check out hooks
 router.post('/register', async (req, res, next) => {
   try {
     const hash = await bcrypt.hash(req.body.not_a_password, SALT_ROUNDS)
     // is sync
     const token = jwt.sign({
-      username: req.body.username,
+      email: req.body.email,
       hash
     }, process.env.AUTH_SECRET, {expiresIn: '1d'})
     res.status(200).send(token)
@@ -25,4 +26,4 @@ router.post('/register', async (req, res, next) => {
 
 module.exports = router
 
-// curl -X POST -H 'Content-Type:application/json' --data '{"username": "hi", "not_a_password": "stu"}' http://localhost:3000/api/auth/register
+// curl -X POST -H 'Content-Type:application/json' --data '{"email": "hi", "not_a_password": "stu"}' http://localhost:3000/api/auth/register
