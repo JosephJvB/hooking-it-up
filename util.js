@@ -9,8 +9,8 @@ const loadEnv = () => {
     process.env = {
       ...process.env,
       ...newKeys,
-      NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
     }
+    process.env.NODE_ENV = process.env.NODE_ENV || 'development'
     console.log('added', newKeys, 'node_env:',process.env.NODE_ENV)
   } else {
     console.log('no SECRETS to load @', CONF_PATH)
