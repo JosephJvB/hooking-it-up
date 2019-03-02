@@ -15,6 +15,10 @@ const App = () => {
 
   const send = async () => {
     const {email, password} = formData
+    if(!email || !password) {
+      console.error('dont test me I\'ll BOP ya')
+      return
+    }
     const headers = {'Content-Type': 'application/json'}
     const body = JSON.stringify({email, not_a_password: password})
     const res = await fetch('/api/auth/register', {method: 'POST', headers, body})
@@ -45,7 +49,10 @@ const App = () => {
             <input onChange={handleChange} style={{...styles.input}} type="password"/>
           </div>
         </div>
-        <button onClick={send} style={{...styles.button}}>SUBMIT</button>
+        <div style={{...styles.submit}}>
+          <p style={{...styles.hand}}>👉</p>
+          <button onClick={send} style={{...styles.button}}>SUBMIT</button>
+        </div>
       </div>
       <footer style={{...styles.footer}}>
         {token ? <p>token: {token.substring(0, 13)}...</p> : <p>footer text footer text footer text footer text footer text footer text</p>}
