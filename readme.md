@@ -19,3 +19,5 @@ Maybe this is an after-I-do-hooks kinda thing.
 const fbApp = require('firebase/app')
 const fbAuth = require('firebase/auth')
 ```
+
+http://web.archive.org/web/20170830213625/http://www.traversymedia.com/deploying-node-js-to-digital-ocean

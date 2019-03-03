@@ -49,10 +49,7 @@ const App = () => {
             <input onChange={handleChange} style={{...styles.input}} type="password"/>
           </div>
         </div>
-        <div style={{...styles.submit}}>
-          <p style={{...styles.hand}}>👉</p>
-          <button onClick={send} style={{...styles.button}}>SUBMIT</button>
-        </div>
+        <button onClick={send} style={{...styles.button}}>SUBMIT</button>
       </div>
       <footer style={{...styles.footer}}>
         {token ? <p>token: {token.substring(0, 13)}...</p> : <p>footer text footer text footer text footer text footer text footer text</p>}
