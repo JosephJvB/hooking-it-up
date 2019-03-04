@@ -2,8 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const path = require('path')
 const AuthRouter = require('./auth')
-const { loadEnv } = require('./util')
-loadEnv()
+require('./util').loadEnv()
 
 const PORT = process.env.PORT || 3000
 

@@ -22,6 +22,10 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
       // maybe I dont need this part...
       // load es6
       // {
