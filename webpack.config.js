@@ -7,8 +7,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
   // stats: 'minimal',
-  // mode: process.env.NODE_ENV || 'development',
-  mode: 'production',
+  mode: process.env.NODE_ENV || 'development',
   entry: path.join(__dirname, 'client.jsx'),
   output: {
     path: path.join(__dirname, 'dist'),
