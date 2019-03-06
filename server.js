@@ -10,6 +10,7 @@ const server = express()
 server.use(helmet())
 server.use(express.static(path.join(__dirname, 'dist')))
 server.use(express.json())
+
 server.use('/api/auth', AuthRouter)
 server.get('*', (req, res, next) => res.sendFile(path.join(__dirname, 'dist/index.html')))
 

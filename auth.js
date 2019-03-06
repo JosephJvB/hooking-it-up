@@ -12,10 +12,12 @@ const SALT_ROUNDS = 1
 router.post('/register', async (req, res, next) => {
   try {
     const hash = await bcrypt.hash(req.body.not_a_password, SALT_ROUNDS)
+    // create user here
     // is sync
     const token = jwt.sign({
       email: req.body.email,
-      hash
+      // id: createdUser.id
+      // hash // i defs shouldnt send the hash back to the client LOL, even tokenized
     }, process.env.AUTH_SECRET, {expiresIn: '1d'})
     res.status(200).send(token)
   } catch (err) {

@@ -4,6 +4,9 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
+// want to try these, no luck with CompressionPlugin so far; maybe it's doing the right thing and Im just not aware
+// const CompressionPlugin = require('compression-webpack-plugin')
+// https://medium.com/@rajaraodv/two-quick-ways-to-reduce-react-apps-size-in-production-82226605771a
 
 module.exports = {
   // stats: 'minimal',
@@ -51,7 +54,7 @@ module.exports = {
     }), 
     new BundleAnalyzerPlugin({
       analyzerHost: 'localhost'
-      // openAnalyzer: false // if I set this to false I'll never look at it again haha
+      // openAnalyzer: false // if I disable this I'll never look at it again haha
     }),
     new FriendlyErrorsWebpackPlugin(),
     new OpenBrowserPlugin({

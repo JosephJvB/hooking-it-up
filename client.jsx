@@ -1,18 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { render } from 'react-dom'
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
 import './main.css'
 
 document.addEventListener('DOMContentLoaded', () => {
-  render (<App />, document.getElementById('mount'))
+  render (<Router />, document.getElementById('mount'))
 })
 
-const App = () => {
+const Router = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/test' component={ReducerTester}/>
+        <Route component={FourOhFour} />
+      </Switch>
+    </BrowserRouter>
+  )
+}
+
+const FourOhFour = () => <h1>BROKEN</h1>
+
+const Home = () => {
 
   // hooks are dooope
   const [token, setToken] = useState('')
   const [formData, setFormData] = useState({})
 
+  useEffect(() => console.log('Only call me on mount please :)'), [])
+  // useEffect(() => console.log('SOMETHING is changing!')) // any re-render (componentDidUpdate)
+  // watch a particular piece of component state
+  useEffect(() => console.log('props.token is changing!'), [token])
+  useEffect(() => console.log('props.formData is changing!'), [formData])
+  
   const send = async () => {
     const {email, password} = formData
     if(!email || !password) {
@@ -57,4 +78,62 @@ const App = () => {
       </footer>
     </div>
   )
+}
+
+// Q: can two components share state from the same reducer?
+// A: no, each inits their own instance of the reducer. share logic, state still exclusive
+// very contrived example
+const ReducerTester = () => {
+  return (
+    <React.Fragment>
+      <ReducerOne />
+      <ReducerTwo />
+    </React.Fragment>
+  )
+}
+
+const reducer = (state, action) => {
+  switch(action.type) {
+    case 'PLUS': return  {...state, count: state.count+1}
+    case 'MINUS': return  {...state, count: state.count-1}
+    default: return state
+  }
+}
+
+const ReducerOne = () => {
+  const init = {count: 0}
+  const [state, dispatch] = useReducer(reducer, init)
+  const plus = () => dispatch({type: 'PLUS'})
+  const minus = () => dispatch({type: 'MINUS'})
+
+  useEffect(() => console.log('child1 count change'), [state.count])
+  // also works!
+  useEffect(() => console.log('child1 state change'), [state])
+  
+  return (
+    <div>
+     CHILD ONE count = {state.count}
+     <button onClick={plus}>+</button>
+     <button onClick={minus}>-</button>
+   </div>
+ ) 
+}
+
+const ReducerTwo = () => {
+  const init = {count: 5}
+  const [state, dispatch] = useReducer(reducer, init)
+  const plus = () => dispatch({type: 'PLUS'})
+  const minus = () => dispatch({type: 'MINUS'})
+
+  useEffect(() => console.log('child2 count change'), [state.count])
+  // also works!
+  useEffect(() => console.log('child2 state change'), [state])
+
+ return (
+   <div>
+     CHILD TWO count = {state.count}
+     <button onClick={plus}>+</button>
+     <button onClick={minus}>-</button>
+   </div>
+ ) 
 }
