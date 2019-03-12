@@ -2,10 +2,10 @@ import React, { useState, useReducer, useEffect } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
-import './main.css'
+import './main.css' // import css so webpack will inject .css contents into <head><style> tag
 
 document.addEventListener('DOMContentLoaded', () => {
-  render (<Router />, document.getElementById('mount'))
+  render(<Router />, document.getElementById('mount'))
 })
 
 const Router = () => {
@@ -14,7 +14,7 @@ const Router = () => {
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route path='/test' component={ReducerTester}/>
-        <Route component={FourOhFour} />
+        <Route component={FourOhFour} /> 
       </Switch>
     </BrowserRouter>
   )
@@ -27,12 +27,14 @@ const Home = () => {
   // hooks are dooope
   const [token, setToken] = useState('')
   const [formData, setFormData] = useState({})
+  const [coords, setCoords] = useState({})
+  const hasCoords = Object.keys(coords).length > 0
 
   useEffect(() => console.log('Only call me on mount please :)'), [])
   // useEffect(() => console.log('SOMETHING is changing!')) // any re-render (componentDidUpdate)
   // watch a particular piece of component state
-  useEffect(() => console.log('props.token is changing!'), [token])
-  useEffect(() => console.log('props.formData is changing!'), [formData])
+  useEffect(() => console.log('token is changing!'), [token])
+  useEffect(() => console.log('formData is changing!'), [formData])
   
   const send = async () => {
     const {email, password} = formData
@@ -55,6 +57,16 @@ const Home = () => {
     })
   }
 
+  const click = e => {
+    e.persist()
+    const { bottom, right, height } = e.target.getBoundingClientRect()
+    setCoords({
+      x: right + height,
+      y: bottom - height / 2,
+      r: height / 2
+    })
+  }
+
   return (
     <div>
       <div className="container">
@@ -66,7 +78,10 @@ const Home = () => {
             <label className="label">🔑</label>
           </div>
           <div className="input-container">
-            <input onChange={handleChange} className="input" type="email"/>
+            <svg style={{position:'absolute',left:0, top: 0, height: '100vh', width: '100vw', zIndex: -1}}>
+              {hasCoords && <circle style={{position: 'absolute'}} cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="4" fill="none" />}
+            </svg>
+            <input onClick={click} onChange={handleChange} className="input" type="email"/>
             <input onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
@@ -82,7 +97,6 @@ const Home = () => {
 
 // Q: can two components share state from the same reducer?
 // A: no, each inits their own instance of the reducer. share logic, state still exclusive
-// very contrived example
 const ReducerTester = () => {
   return (
     <React.Fragment>
@@ -92,6 +106,7 @@ const ReducerTester = () => {
   )
 }
 
+// contrived example
 const reducer = (state, action) => {
   switch(action.type) {
     case 'PLUS': return  {...state, count: state.count+1}

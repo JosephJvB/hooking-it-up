@@ -53,7 +53,7 @@ module.exports = {
       template: path.join(__dirname, 'index.html')
     }), 
     new BundleAnalyzerPlugin({
-      analyzerHost: 'localhost'
+      analyzerHost: 'localhost' // default is 127.0.0.1
       // openAnalyzer: false // if I disable this I'll never look at it again haha
     }),
     new FriendlyErrorsWebpackPlugin(),
