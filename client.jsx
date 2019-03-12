@@ -91,6 +91,7 @@ const Home = () => {
         svgEl.classList.remove('fade-out')
         svgEl.classList.add('fade-in')
       }
+      // triangle is 18px long(28-10), 16px high(8+8; 8px either side of middle)
       setCoords({
         p1: `${right + 10},${bottom - height / 2}`,
         p2: `${right + 28},${bottom - height / 2 - 8}`,
@@ -104,8 +105,8 @@ const Home = () => {
   return (
     <div>
       <div className="container">
-        <h1 onClick={showPointer} className="title">Welcome!</h1>
-        <p onClick={showPointer} className="subtitle"><i>So glad you made it</i></p>
+        <h1 className="title">Welcome!</h1>
+        <p className="subtitle"><i>So glad you made it</i></p>
         <div className="form">
           <div className="emoji-labels">
             <label className="label">📧</label>
@@ -118,11 +119,11 @@ const Home = () => {
                 <polygon points={points} stroke="#f45f42" strokeWidth="2" fill="#f45f42" />
               </svg>
             </div>}
-            <input data-type="email" onClick={showPointer} value={formData.email} onChange={handleChange} className="input" type="text"/>
-            <input data-type="not_a_password" onClick={showPointer} value={formData.not_a_password} onChange={handleChange} className="input" type="password"/>
+            <input data-type="email" onFocus={showPointer} value={formData.email} onChange={handleChange} className="input" type="text"/>
+            <input data-type="not_a_password" onFocus={showPointer} value={formData.not_a_password} onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
-        <button onClick={(e) => {showPointer(e); send(e)}} className="submit-button">SUBMIT</button>
+        <button onFocus={showPointer} onClick={e => {showPointer(e); send(e)}} className="submit-button">SUBMIT</button>
       </div>
       <footer className="footer">
         <p id="token">
