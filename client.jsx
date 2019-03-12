@@ -36,17 +36,26 @@ const Home = () => {
   useEffect(() => console.log('token is changing!'), [token])
   useEffect(() => console.log('formData is changing!'), [formData])
   
-  const send = async () => {
-    const {email, password} = formData
+  const send = async (e) => {
+    e.persist()
+    const {text: email, password} = formData
     if(!email || !password) {
       console.error('dont test me I\'ll BOP ya')
       return
     }
     const headers = {'Content-Type': 'application/json'}
     const body = JSON.stringify({email, not_a_password: password})
-    const res = await fetch('/api/auth/register', {method: 'POST', headers, body})
-    const token = await res.text()
-    setToken(token)
+    try {
+      const res = await fetch('/api/auth/register', {method: 'POST', headers, body})
+      const token = await res.text()
+      click({ // send the svg pointer to the token element
+        target: document.getElementById('token'),
+        persist: e.persist
+      })
+      setToken(token)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   const handleChange = e => {
@@ -87,16 +96,19 @@ const Home = () => {
           <div className="input-container">
             <svg style={{position:'absolute',left:0, top: 0, height: '100vh', width: '100vw', zIndex: -1}}>
               {/* {hasCoords && <circle cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="2" fill="none" />} */}
-              {hasCoords && <polygon points={points} stroke="red" strokeWidth="2" fill="#f45f42" />}
+              {hasCoords && <polygon points={points} stroke="#f45f42" strokeWidth="2" fill="#f45f42" />}
             </svg>
-            <input onClick={click} onChange={handleChange} className="input" type="email"/>
+            <input onClick={click} onChange={handleChange} className="input" type="text"/>
             <input onClick={click} onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
-        <button onClick={(e) => {click(e); send()}} className="submit-button">SUBMIT</button>
+        <button onClick={(e) => {click(e); send(e)}} className="submit-button">SUBMIT</button>
       </div>
       <footer className="footer">
-        {token ? <p>token: {token.substring(0, 13)}...</p> : <p>footer text footer text footer text footer text footer text footer text</p>}
+        <p id="token">
+          {token ? "token: "  + token.substring(0, 13) + '...'
+          : "footer text footer text footer text footer text footer text footer text"}
+        </p>
         <p>all rights are dope yaaaah yeet</p>
       </footer>
     </div>
