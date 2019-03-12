@@ -3,6 +3,7 @@ const HtmlPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+require('./util').loadEnv() // load env before building
 
 // want to try these, no luck with CompressionPlugin so far; maybe it's doing the right thing and Im just not aware
 // const CompressionPlugin = require('compression-webpack-plugin')
