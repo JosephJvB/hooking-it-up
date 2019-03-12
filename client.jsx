@@ -60,18 +60,25 @@ const Home = () => {
   const click = e => {
     e.persist()
     const { bottom, right, height } = e.target.getBoundingClientRect()
+    // setCoords({ // for circle
+    //   x: right + height,
+    //   y: bottom - height / 2,
+    //   r: 5
+    // })
     setCoords({
-      x: right + height,
-      y: bottom - height / 2,
-      r: height / 2
+      p1: `${right + 10},${bottom - height / 2}`,
+      p2: `${right + 28},${bottom - height / 2 - 8}`,
+      p3: `${right + 28},${bottom - height / 2 + 8}`
     })
   }
+
+  const points = hasCoords && coords.p1 + ' ' + coords.p2 + ' ' + coords.p3
 
   return (
     <div>
       <div className="container">
-        <h1 className="title">Welcome!</h1>
-        <p className="subtitle"><i>So glad you made it</i></p>
+        <h1 onClick={click} className="title">Welcome!</h1>
+        <p onClick={click} className="subtitle"><i>So glad you made it</i></p>
         <div className="form">
           <div className="emoji-labels">
             <label className="label">📧</label>
@@ -79,13 +86,14 @@ const Home = () => {
           </div>
           <div className="input-container">
             <svg style={{position:'absolute',left:0, top: 0, height: '100vh', width: '100vw', zIndex: -1}}>
-              {hasCoords && <circle style={{position: 'absolute'}} cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="4" fill="none" />}
+              {/* {hasCoords && <circle cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="2" fill="none" />} */}
+              {hasCoords && <polygon points={points} stroke="red" strokeWidth="2" fill="#f45f42" />}
             </svg>
             <input onClick={click} onChange={handleChange} className="input" type="email"/>
-            <input onChange={handleChange} className="input" type="password"/>
+            <input onClick={click} onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
-        <button onClick={send} className="submit-button">SUBMIT</button>
+        <button onClick={(e) => {click(e); send()}} className="submit-button">SUBMIT</button>
       </div>
       <footer className="footer">
         {token ? <p>token: {token.substring(0, 13)}...</p> : <p>footer text footer text footer text footer text footer text footer text</p>}
