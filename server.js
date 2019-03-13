@@ -13,7 +13,7 @@ server.use(express.json())
 
 if(process.env.NODE_ENV === 'production') {
   // open https server and register route to respond to ssl challenge
-  initSecureServer(server)
+  require('./util').initSecureServer(server)
   server.use('/.well-known/acme-challenge', require('./ssl')) // load ssl router after loading vars onto process.env
 }
 server.use('/api/auth', AuthRouter)
