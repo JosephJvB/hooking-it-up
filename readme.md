@@ -7,6 +7,7 @@
   - done in a very basic way. Seems a good start though
   - Cooler: can I get the svg to move across the screen rather than disappear and reappear.
 - Get SSL certificate for site: Im getting messages on my input fields that the site is insecure.
+  - https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca
 - Use PM2 better
 - I should make custom popups for error/success of API calls
   - position absolute type stuff

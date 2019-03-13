@@ -8,9 +8,10 @@ const PORT = process.env.PORT || 3000
 
 const server = express()
 server.use(helmet())
-server.use(express.static(path.join(__dirname, 'dist')))
+server.use(express.static(path.join(__dirname, 'dist'), {/*dotfiles: 'allow'*/})) // couldnt get dotfiles through no matter what!
 server.use(express.json())
 
+server.use('/.well-known/acme-challenge', require('./ssl')) // load ssl router after loading vars onto process.env
 server.use('/api/auth', AuthRouter)
 server.get('*', (req, res, next) => res.sendFile(path.join(__dirname, 'dist/index.html')))
 
