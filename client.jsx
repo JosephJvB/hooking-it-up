@@ -28,6 +28,7 @@ const Home = () => {
   const [token, setToken] = useState('')
   const [formData, setFormData] = useState({email: '', not_a_password: ''})
   const [coords, setCoords] = useState({})
+  const [svgClass, setSvgClass] = useState('fade-in')
   const hasCoords = Object.keys(coords).length > 0
 
   // useEffect(() => console.log('Only call me on mount please :)'), [])
@@ -74,11 +75,9 @@ const Home = () => {
   const showPointer = e => {
     e.persist()
     const { bottom, right, height } = e.target.getBoundingClientRect()
-    const svgEl = document.getElementById('svg-box')
     // if exists, fade out
-    if(svgEl) {
-      svgEl.classList.remove('fade-in')
-      svgEl.classList.add('fade-out')
+    if(hasCoords) {
+      setSvgClass('fade-out')
     }
     // setCoords({ // for circle
     //   x: right + height,
@@ -87,9 +86,8 @@ const Home = () => {
     // })
     setTimeout(() => {
       // if exists, remove fadeout class & fade in
-      if(svgEl) {
-        svgEl.classList.remove('fade-out')
-        svgEl.classList.add('fade-in')
+      if(hasCoords) {
+        setSvgClass('fade-in')
       }
       // triangle is 18px long(28-10), 16px high(8+8; 8px either side of middle)
       setCoords({
@@ -113,7 +111,7 @@ const Home = () => {
             <label className="label">🔑</label>
           </div>
           <div className="input-container">
-            {hasCoords && <div id="svg-box" className="svg-box">
+            {hasCoords && <div id="svg-box" className={svgClass}>
               <svg style={{position:'absolute',left:0, top: 0, height: '100vh', width: '100vw', zIndex: -1}}>
                 {/* {hasCoords && <circle cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="2" fill="none" />} */}
                 <polygon points={points} stroke="#f45f42" strokeWidth="2" fill="#f45f42" />
