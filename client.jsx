@@ -75,20 +75,16 @@ const Home = () => {
   const showPointer = e => {
     e.persist()
     const { bottom, right, height } = e.target.getBoundingClientRect()
-    // if exists, fade out
-    if(hasCoords) {
-      setSvgClass('fade-out')
-    }
+    // fade out existing pointer
+    setSvgClass('fade-out')
     // setCoords({ // for circle
     //   x: right + height,
     //   y: bottom - height / 2,
     //   r: 5
     // })
     setTimeout(() => {
-      // if exists, remove fadeout class & fade in
-      if(hasCoords) {
-        setSvgClass('fade-in')
-      }
+      // fade in after timeout
+      setSvgClass('fade-in')
       // triangle is 18px long(28-10), 16px high(8+8; 8px either side of middle)
       setCoords({
         p1: `${right + 10},${bottom - height / 2}`,
