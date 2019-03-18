@@ -116,4 +116,9 @@ footer {
   justify-content: space-between;
   padding: 0 8px;
   border-radius: 5px;
+  height: 55px;
+}
+
+#x:hover {
+  cursor: pointer;
 }

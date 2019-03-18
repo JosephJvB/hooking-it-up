@@ -29,7 +29,7 @@ const Home = () => {
   const [formData, setFormData] = useState({email: '', not_a_password: ''})
   const [coords, setCoords] = useState({})
   const [svgClass, setSvgClass] = useState('fade-in')
-  const [showToast, setToast] = useState(false)
+  const [toasts, setToast] = useState([])
   const hasCoords = Object.keys(coords).length > 0
 
   // useEffect(() => console.log('Only call me on mount please :)'), [])
@@ -97,12 +97,16 @@ const Home = () => {
 
   const points = hasCoords && coords.p1 + ' ' + coords.p2 + ' ' + coords.p3
 
+  const getTop = (i) => i * 55 + 5 * (i + 1) + 'px'
+
   return (
     <div>
-      {showToast && <div className="toast">
-        <p>Hey I am a useful message alert</p>
-        <p>❌</p>
-      </div>}
+      {toasts.length > 0 && toasts.slice(0, 5).map((t, i) => (
+        <div key={i} style={{top: getTop(i)}} className="toast">
+          <p>Hey I am a useful message alert</p>
+          <p id="x" onClick={() => setToast([...toasts.slice(0, toasts.length - 1)])}>❌</p>
+        </div>
+      ))}
       <div className="container">
         <h1 className="title">Welcome!</h1>
         <p className="subtitle"><i>So glad you made it</i></p>
@@ -122,7 +126,7 @@ const Home = () => {
             <input data-type="not_a_password" onFocus={showPointer} value={formData.not_a_password} onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
-        <button onFocus={showPointer} onClick={e => {showPointer(e); setToast(!showToast)}} className="submit-button">SUBMIT</button>
+        <button onFocus={showPointer} onClick={e => setToast([...toasts, 1])} className="submit-button">SUBMIT</button>
         {/* <button onFocus={showPointer} onClick={e => {showPointer(e); send(e)}} className="submit-button">SUBMIT</button> */}
       </div>
       <footer className="footer">
