@@ -13,5 +13,7 @@
 - Use PM2 better
 - I should make custom popups for error/success of API calls
   - position absolute type stuff
+  - in prog:
+- Refactor client.jsx to proper modules
 
 http://web.archive.org/web/20170830213625/http://www.traversymedia.com/deploying-node-js-to-digital-ocean

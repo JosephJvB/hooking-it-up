@@ -12,7 +12,7 @@ require('./util').loadEnv() // load env before building
 module.exports = {
   // stats: 'minimal',
   mode: process.env.NODE_ENV || 'development',
-  entry: path.join(__dirname, 'client.jsx'),
+  entry: path.join(__dirname, 'client/index.jsx'),
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'dist_bundle.js'
