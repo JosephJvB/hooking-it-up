@@ -1,6 +1,8 @@
 import React, { useState, useReducer, useEffect } from 'react'
 
 import Toasts from './Toasts.jsx'
+import SVGPointer from './SVGPointer.jsx'
+import Footer from './Footer.jsx'
 
 export default () => {
 
@@ -88,27 +90,16 @@ export default () => {
             <label className="label">📧</label>
             <label className="label">🔑</label>
           </div>
+            {hasCoords && <SVGPointer {...{svgClass, points}} />}
           <div className="input-container">
-            {hasCoords && <div id="svg-box" className={svgClass}>
-              <svg style={{position:'absolute',left:0, top: 0, height: '100vh', width: '100vw', zIndex: -1}}>
-                {/* {hasCoords && <circle cx={coords.x} cy={coords.y} r={coords.r} stroke="red" strokeWidth="2" fill="none" />} */}
-                <polygon points={points} stroke="#f45f42" strokeWidth="2" fill="#f45f42" />
-              </svg>
-            </div>}
             <input data-type="email" onFocus={showPointer} value={formData.email} onChange={handleChange} className="input" type="text"/>
             <input data-type="not_a_password" onFocus={showPointer} value={formData.not_a_password} onChange={handleChange} className="input" type="password"/>
           </div>
         </div>
-        <button onFocus={showPointer} onClick={e => setToast([...toasts, toasts.length])} className="submit-button">SUBMIT</button>
+        <button onFocus={showPointer} onClick={e => {send(e); setToast([...toasts, toasts.length])}} className="submit-button">SUBMIT</button>
         {/* <button onFocus={showPointer} onClick={e => {showPointer(e); send(e)}} className="submit-button">SUBMIT</button> */}
       </div>
-      <footer className="footer">
-        <p id="token">
-          {token ? "token: "  + token.substring(0, 13) + '...'
-          : "footer text footer text footer text footer text footer text footer text"}
-        </p>
-        <p>all rights are dope yaaaah yeet</p>
-      </footer>
+      <Footer {...{token}} />
     </div>
   )
 }
