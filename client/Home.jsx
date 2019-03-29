@@ -1,11 +1,11 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, createContext } from 'react'
 
 import Toasts from './Toasts.jsx'
 import SVGPointer from './SVGPointer.jsx'
 import Footer from './Footer.jsx'
 
 export default () => {
-
+  
   // hooks are dooope
   const [token, setToken] = useState('')
   const [formData, setFormData] = useState({email: '', not_a_password: ''})

@@ -15,5 +15,8 @@
   - position absolute type stuff
   - in prog:
 - Refactor client.jsx to proper modules
+  - cant really remove the login form to a child module without doing heaps of passing of props bcos no redux.
+  - so Home component has to stay as holding all the data to pass to children. Passing data between children is painful.
+  - maybe this is exacly where React Provide Context and useContext come in!
 
 http://web.archive.org/web/20170830213625/http://www.traversymedia.com/deploying-node-js-to-digital-ocean
